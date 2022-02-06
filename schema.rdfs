@@ -1,0 +1,68 @@
+@prefix :      <http://127.0.0.1:3333/> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+
+:Lieu a rdfs:Class.
+
+:Entreprise a rdfs:Class.
+
+:Resultat a rdfs:Class.
+
+:Adresse a rdfs:Class.
+
+:Ville a rdfs:Class;
+rdfs:subClassOf :Lieu.
+
+:Departement a rdfs:Class;
+rdfs:subClassOf :Lieu.
+
+:Region a rdfs:Class;
+rdfs:subClassOf :Lieu.
+
+:siren a rdf:Property;
+rdfs:domain :Entreprise;
+rdfs:range rdfs:Literal.
+
+:adresse a rdf:Property;
+rdfs:domain :Entreprise;
+rdfs:range :Adresse.
+
+:code_postal a rdf:Property;
+rdfs:domain :Adresse
+rdfs:range rdfs:Literal.
+
+:ville a rdf:Property;
+rdfs:domain :Adresse
+rdfs:range :Ville.
+
+:immatriculation a rdf:Property;
+rdfs:domain :Entreprise;
+rdfs:range rdfs:Literal.
+
+:annee_2019 a rdf:Property;
+rdfs:domain :Entreprise;
+rdfs:range :Resultat.
+
+:annee_2018 a rdf:Property;
+rdfs:domain :Entreprise;
+rdfs:range :Resultat.
+
+:annee_2017 a rdf:Property;
+rdfs:domain :Entreprise;
+rdfs:range :Resultat.
+
+:ca a rdf:Property;
+rdfs:domain :Resultat;
+rdfs:range rdfs:Literal.
+
+:resultat a rdf:Property;
+rdfs:domain :Resultat;
+rdfs:range rdfs:Literal.
+
+:effectif a rdf:Property;
+rdfs:domain :Resultat;
+rdfs:range rdfs:Literal.
+
+:part_of a rdf:Property;
+rdfs:domain :Lieu;
+rdfs:range :Lieu.

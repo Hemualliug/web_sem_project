@@ -1,0 +1,16 @@
+.title {
+    text-align: center;
+}
+
+.hidden {
+    display: none;
+}
+
+.result {
+    float: right;
+}
+
+.bloc{
+    width: 100%;
+    height: 500px;
+}

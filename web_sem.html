@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]>      <html class="no-js"> <!--<![endif]-->
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="style.css">
+        <script src="d3sparql.js"></script>
+        <script src="https://d3js.org/d3.v3.min.js"></script>
+    </head>
+    <body>
+        <h1 class="title">Projet Web des données et web sémantique - Guillaume Hutin</h1>
+
+        <label for="annee_select">Barchart des 10 premières entreprises en fonction de leur chiffre d'affaire en :</label>
+        <select name="ca" id="annee_select">
+            <option value="2017">2017</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+        </select>
+
+        <div class="bloc">
+            
+            <textarea id="sparql1" class="span9 hidden" rows=25 cols=40>
+                PREFIX : <http://mon_projet.org/entreprise#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    
+                SELECT DISTINCT ?nom ?ca
+                WHERE {
+                    ?entreprise :annee_2019 [:ca ?ca].
+                    ?entreprise rdfs:label ?nom.
+                }
+                ORDER BY DESC(xsd:float(?ca))
+                LIMIT 10
+            </textarea>
+    
+            <textarea id="sparql2" class="span9 hidden" rows=25 cols=40>
+                PREFIX : <http://mon_projet.org/entreprise#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    
+                SELECT DISTINCT ?nom ?ca
+                WHERE {
+                    ?entreprise :annee_2018 [:ca ?ca].
+                    ?entreprise rdfs:label ?nom.
+                }
+                ORDER BY DESC(xsd:float(?ca))
+                LIMIT 10
+            </textarea>
+    
+            <textarea id="sparql3" class="span9" rows=25 cols=40>
+                PREFIX : <http://mon_projet.org/entreprise#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    
+                SELECT DISTINCT ?nom ?ca
+                WHERE {
+                    ?entreprise :annee_2017 [:ca ?ca].
+                    ?entreprise rdfs:label ?nom.
+                }
+                ORDER BY DESC(xsd:float(?ca))
+                LIMIT 10
+            </textarea>
+    
+    
+            <div id="result1" class="result">
+            </div>
+
+        </div>
+        <div class="bloc">
+            <p>Liste des régions avec leur nombre d'entreprises</p>
+            <textarea id="sparql4" class="span9" rows=25 cols=40>
+                PREFIX : <http://mon_projet.org/entreprise#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    
+                SELECT (?nom_region as ?Region) (COUNT(?entreprise) as ?Nombre_d_entreprise ) 
+                WHERE {
+                    ?entreprise :adresse [:ville ?ville].
+                    ?ville rdfs:label ?nom_ville.
+                    ?ville :part_of ?departement.
+                    ?departement rdfs:label ?nom_departement.
+                    ?departement :part_of ?region.
+                    ?region rdfs:label ?nom_region.
+                }
+                GROUP BY ?nom_region
+            </textarea>
+    
+            <div id="result2" class="result">
+            </div>
+        </div>
+        
+        <div class="bloc">
+            <textarea id="sparql5" class="span9" rows=25 cols=40>
+                PREFIX : <http://mon_projet.org/entreprise#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+    
+                SELECT (?nom_region as ?Region) (COUNT(?entreprise) as ?Nombre_d_entreprise ) 
+                WHERE {
+                    ?entreprise :adresse [:ville ?ville].
+                    ?ville rdfs:label ?nom_ville.
+                    ?ville :part_of ?departement.
+                    ?departement rdfs:label ?nom_departement.
+                    ?departement :part_of ?region.
+                    ?region rdfs:label ?nom_region.
+                }
+                GROUP BY ?nom_region
+                ORDER BY DESC(?Nombre_d_entreprise)
+            </textarea>
+    
+            <div id="result3" class="result">
+            </div>
+        </div>
+
+        <div class="bloc">
+            <textarea id="sparql6" class="span9" rows=25 cols=40>
+                PREFIX : <http://mon_projet.org/entreprise#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    
+                SELECT (?nom_region as ?Region) (COUNT(?entreprise) as ?Nombre_d_entreprise_radiée ) 
+                WHERE {
+                ?entreprise :adresse [:ville ?ville].
+                ?ville rdfs:label ?nom_ville.
+                ?ville :part_of ?departement.
+                ?departement rdfs:label ?nom_departement.
+                ?departement :part_of ?region.
+                ?region rdfs:label ?nom_region.
+                ?entreprise :radiee ?radiee
+                FILTER(?radiee = "1")
+                }
+                GROUP BY ?nom_region
+                
+            </textarea>
+    
+            <div id="result4" class="result">
+            </div>
+        </div>
+
+        <div class="bloc">
+            <textarea id="sparql7" class="span9" rows=25 cols=40>
+                PREFIX : <http://mon_projet.org/entreprise#>
+                PREFIX rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+                PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+                PREFIX owl: <http://www.w3.org/2002/07/owl#>
+                PREFIX xsd: <http://www.w3.org/2001/XMLSchema#>
+                    
+                SELECT (?nom_region as ?Region) (COUNT(?entreprise) as ?Nombre_d_entreprise_radiée ) 
+                WHERE {
+                ?entreprise :adresse [:ville ?ville].
+                ?ville rdfs:label ?nom_ville.
+                ?ville :part_of ?departement.
+                ?departement rdfs:label ?nom_departement.
+                ?departement :part_of ?region.
+                ?region rdfs:label ?nom_region.
+                ?entreprise :radiee ?radiee
+                FILTER(?radiee = "1")
+                }
+                GROUP BY ?nom_region
+                ORDER BY DESC(?Nombre_d_entreprise_radiée)
+                
+            </textarea>
+    
+            <div id="result5" class="result">
+            </div>
+        </div>
+        
+        <script src="script.js" async defer></script>
+    </body>
+</html>
