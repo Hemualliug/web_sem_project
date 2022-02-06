@@ -22,5 +22,6 @@ Etapes :
 - Dataset type : persistent
 - aller à upload data
 - uploader le fichier clean_data.ttl
+- vérifier dans fuseki que votre endpoint est bien "http://localhost:3030/web_sem/sparql"
 - lancer le fichier web_sem.html
-- vérifier que votre endpoint est bien "http://localhost:3030/web_sem/sparql"
+
