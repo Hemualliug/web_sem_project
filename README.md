@@ -2,6 +2,7 @@
 Semantic Web School Project
 
 Description des fichiers :
+- rapport_projet_web_sémantique.pdf : rapport
 - dossier d3 : dossier contenant la librairie d3 qui peremet de faire fonctionner d3sparql
 - clean_data.ttl : données à la sortie du convertisseur et prêtes à être dans fuseki
 - d3sparql.js : librairie d3sparql
